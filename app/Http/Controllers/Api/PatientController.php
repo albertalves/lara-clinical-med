@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Consultation;
+use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
-class ConsultationController extends Controller
+class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class ConsultationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Consultation  $consultation
+     * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function show(Consultation $consultation)
+    public function show(Patient $patient)
     {
         //
     }
@@ -52,10 +53,10 @@ class ConsultationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Consultation  $consultation
+     * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consultation $consultation)
+    public function edit(Patient $patient)
     {
         //
     }
@@ -64,10 +65,10 @@ class ConsultationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Consultation  $consultation
+     * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consultation $consultation)
+    public function update(Request $request, Patient $patient)
     {
         //
     }
@@ -75,10 +76,10 @@ class ConsultationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Consultation  $consultation
+     * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consultation $consultation)
+    public function destroy(Patient $patient)
     {
         //
     }
