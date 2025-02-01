@@ -5,10 +5,27 @@ use App\Http\Controllers\Api\{
     CityController,
     ConsultationController,
     DoctorController,
-    PatientController
+    PatientController,
+    AuthController
 };
 
-Route::apiResource('cities', CityController::class);
-Route::apiResource('doctors', DoctorController::class);
-Route::apiResource('patients', PatientController::class);
-Route::apiResource('consultations', ConsultationController::class);
+Route::get('cities', [CityController::class, 'index']);
+Route::get('doctors', [DoctorController::class, 'index']);
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('doctors', [DoctorController::class, 'store']);
+
+    Route::get('patients', [PatientController::class, 'index']);
+    Route::post('patients', [PatientController::class, 'store']);
+    Route::put('patients', [PatientController::class, 'update']);
+
+    Route::get('consultations', [ConsultationController::class, 'index']);
+    Route::post('consultations', [ConsultationController::class, 'store']);
+});
+
+Route::prefix('auth')->middleware('api')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+});

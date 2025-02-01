@@ -36,4 +36,15 @@ class DoctorController extends Controller
             return $this->response($exception->getMessage(), [], 400);
         }
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
