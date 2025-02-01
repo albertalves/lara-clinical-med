@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CityResource;
+use App\Http\Traits\JsonResponse;
 use App\Services\CityService;
 use Illuminate\Http\Request;
-use App\Http\Traits\JsonResponse;
 
 class CityController extends Controller
 {
