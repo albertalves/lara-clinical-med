@@ -8,16 +8,29 @@
 cp .env.example .env
 ```
 
-
-### Key generate
+### Configuring A Bash Alias
 
 ```shell
-php artisan key:generate
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 ```
 
 
 ### start application
 
 ```shell
-./vendor/bin/sail up
+sail up -d
+```
+
+
+### Key generate
+
+```shell
+sail artisan key:generate
+```
+
+
+### Execute seeds
+
+```shell
+sail artisan db:seed
 ```
