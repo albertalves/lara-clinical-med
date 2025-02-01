@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('consultations', [ConsultationController::class, 'index']);
     Route::post('consultations', [ConsultationController::class, 'store']);
+    Route::get('cities/{city_id}/doctors', [CityController::class, 'doctors']);
 });
 
 Route::prefix('auth')->middleware('api')->group(function () {

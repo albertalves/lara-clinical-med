@@ -18,4 +18,9 @@ class CityService
     {
         return $this->cityRepository->getCities($data);
     }
+
+    public function getDoctorsFromCity(Request $data)
+    {
+        return $this->cityRepository->getDoctorsFromCity($data);
+    }
 }
