@@ -3,20 +3,20 @@
 namespace App\Services;
 
 use App\Repositories\DoctorRepository;
-use Illuminate\Http\Request;
 
 class DoctorService
 {
     protected $doctorRepository;
+    protected $consultationRepository;
 
-    public function __construct(DoctorRepository $repository)
+    public function __construct(DoctorRepository $doctor)
     {
-        $this->doctorRepository = $repository;
+        $this->doctorRepository = $doctor;
     }
 
-    public function getDoctors(Request $data)
+    public function getDoctors(string $name = '')
     {
-        return $this->doctorRepository->getDoctors($data);
+        return $this->doctorRepository->getDoctors($name);
     }
 
     public function createDoctor(array $data)

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Doctor;
-use Illuminate\Http\Request;
 
 class DoctorRepository
 {
@@ -14,9 +13,8 @@ class DoctorRepository
         $this->doctor = $doctor;
     }
 
-    public function getDoctors(Request $request)
+    public function getDoctors(string $name = '')
     {
-        $name = $request->query('name');
         $doctors = $this->doctor->where('name', 'like', "%$name%")->orderBy('name', 'asc')->paginate(10);
 
         return $doctors;

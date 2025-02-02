@@ -28,7 +28,7 @@ class DoctorController extends Controller
     public function index(Request $request)
     {
         try {
-            $doctors = $this->doctorService->getDoctors($request);
+            $doctors = $this->doctorService->getDoctors($request->name ?? '');
 
             return $this->response('Sucesso', [
                 'doctors' => DoctorResource::collection($doctors)
