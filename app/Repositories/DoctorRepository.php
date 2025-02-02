@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Doctor;
+use App\Models\Patient;
+use Carbon\Carbon;
 
 class DoctorRepository
 {
@@ -25,9 +27,29 @@ class DoctorRepository
         $doctor = $this->doctor->create([
             'name' => $request['name'],
             'specialty' => $request['specialty'],
-            'city_id' => $request['city_id']
+            'city_id' => $request['cityId']
         ]);
 
         return $doctor;
+    }
+
+    public function getPatients(int $doctor_id, bool $onlyScheduled, $name = '')
+    {
+        $patients = Patient::with('consultations')
+                            ->whereHas('consultations', function ($query) use ($doctor_id, $onlyScheduled) {
+                                $query->where('doctor_id', $doctor_id);
+                                if ($onlyScheduled) {
+                                    $query->whereDate('date', '>=', Carbon::today());
+                                } 
+                            })
+                            ->where('name', 'like', "%$name%")
+                            ->orderBy('name', 'asc')
+                            ->paginate(10);
+
+        if (!$patients || $patients->isEmpty()) {
+            return [];
+        }
+     
+        return $patients;
     }
 }

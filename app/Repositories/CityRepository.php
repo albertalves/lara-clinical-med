@@ -30,7 +30,7 @@ class CityRepository
             }
         }]);
 
-        $city = $query->where('id', $request->city_id)->first();
+        $city = $query->where('id', $request->cityId)->first();
 
         if (!$city || $city->doctors->isEmpty()) {
             return [];

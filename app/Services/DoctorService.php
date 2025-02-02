@@ -35,7 +35,7 @@ class DoctorService
             Carbon::parse($data['date'])->addHour()
         ];
 
-        $alreadyHasConsultation = Consultation::where('doctor_id', $data['doctor_id'])
+        $alreadyHasConsultation = Consultation::where('doctor_id', $data['doctorId'])
                                                 ->whereBetween('date', $interval)
                                                 ->exists();
 
@@ -44,5 +44,10 @@ class DoctorService
         }
 
         return $this->consultationRepository->scheduleConsultation($data);
+    }
+
+    public function getPatients(int $doctor_id, bool $onlyScheduled, string $name = '')
+    {
+       return $this->doctorRepository->getPatients($doctor_id, $onlyScheduled, $name);
     }
 }

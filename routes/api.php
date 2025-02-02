@@ -15,6 +15,7 @@ Route::get('doctors', [DoctorController::class, 'index']);
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('doctors', [DoctorController::class, 'store']);
     Route::post('doctors/consultation', [DoctorController::class, 'scheduleConsultation']);
+    Route::get('doctors/{doctorId}/patients', [DoctorController::class, 'patients']);
 
     Route::get('patients', [PatientController::class, 'index']);
     Route::post('patients', [PatientController::class, 'store']);
@@ -23,7 +24,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('consultations', [ConsultationController::class, 'index']);
     Route::post('consultations', [ConsultationController::class, 'store']);
 
-    Route::get('cities/{city_id}/doctors', [CityController::class, 'doctors']);
+    Route::get('cities/{cityId}/doctors', [CityController::class, 'doctors']);
 });
 
 Route::prefix('auth')->middleware('api')->group(function () {

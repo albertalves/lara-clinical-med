@@ -17,8 +17,7 @@ class ConsultationResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
-            'doctor' => new DoctorResource($this->doctor),
-            'patient' => new PatientResource($this->patient),
+            'doctor' => new DoctorResource($this->doctor)
         ];
     }
 }

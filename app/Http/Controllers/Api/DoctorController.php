@@ -7,6 +7,7 @@ use App\Http\Requests\CreateConsultationRequest;
 use App\Http\Requests\CreateDoctorRequest;
 use App\Http\Resources\ConsultationResource;
 use App\Http\Resources\DoctorResource;
+use App\Http\Resources\PatientResource;
 use App\Http\Traits\JsonResponse;
 use App\Services\DoctorService;
 use Illuminate\Http\Request;
@@ -69,6 +70,27 @@ class DoctorController extends Controller
             ]);
         } catch (\Exception $exception) {
             return $this->response('Não foi possível criar a consulta.', [$exception->getMessage()], 422);
+        }
+    }
+
+    public function patients(Request $request)
+    {
+        try {
+            $doctorId = $request->doctorId;
+            $onlyScheduled = $request->onlyScheduled === "true";
+            $name = $request->name ?? '';
+            
+            $patients = $this->doctorService->getPatients($doctorId, $onlyScheduled, $name);
+
+            if (empty($patients)) {
+                throw new \Exception('Nenhum paciente foi encontrado.');
+            }
+
+            return $this->response('Sucesso.', [
+                'patients' => PatientResource::collection($patients)
+            ]);
+        } catch (\Exception $exception) {
+            return $this->response('Não foi possível listar os pacientes', [$exception->getMessage()], 422);
         }
     }
 }

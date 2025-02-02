@@ -16,8 +16,8 @@ class ConsultationRepository
     public function scheduleConsultation(array $request)
     {
         $consultation = $this->consultation->create([
-            'doctor_id' => $request['doctor_id'],
-            'patient_id' => $request['patient_id'],
+            'doctor_id' => $request['doctorId'],
+            'patient_id' => $request['patientId'],
             'date' => $request['date'],
         ]);
 
