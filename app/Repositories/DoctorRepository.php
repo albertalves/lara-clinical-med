@@ -17,8 +17,19 @@ class DoctorRepository
     public function getDoctors(Request $request)
     {
         $name = $request->query('name');
-        $doctors = Doctor::where('name', 'like', "%$name%")->orderBy('name', 'asc')->paginate(10);
+        $doctors = $this->doctor->where('name', 'like', "%$name%")->orderBy('name', 'asc')->paginate(10);
 
         return $doctors;
+    }
+    
+    public function createDoctor(array $request)
+    {
+        $doctor = $this->doctor->create([
+            'name' => $request['name'],
+            'specialty' => $request['specialty'],
+            'city_id' => $request['city_id']
+        ]);
+
+        return $doctor;
     }
 }

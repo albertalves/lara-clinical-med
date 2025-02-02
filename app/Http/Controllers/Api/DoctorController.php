@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateDoctorRequest;
 use App\Http\Resources\DoctorResource;
 use App\Http\Traits\JsonResponse;
 use App\Services\DoctorService;
@@ -33,7 +34,7 @@ class DoctorController extends Controller
                 'doctors' => DoctorResource::collection($doctors)
             ]);
         } catch (\Exception $exception) {
-            return $this->response($exception->getMessage(), [], 400);
+            return $this->response('Houve um erro ao buscar os médicos.', [$exception->getMessage()], 422);
         }
     }
 
@@ -43,8 +44,16 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDoctorRequest $request)
     {
-        dd($request->all());
+        try {
+            $doctors = $this->doctorService->createDoctor($request->validated());
+
+            return $this->response('Médico criado com sucesso.', [
+                'doctor' => new DoctorResource($doctors)
+            ]);
+        } catch (\Exception $exception) {
+            return $this->response('Não foi possível concluir seu cadastro.', [$exception->getMessage()], 422);
+        }
     }
 }

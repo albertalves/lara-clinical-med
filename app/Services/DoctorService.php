@@ -18,4 +18,9 @@ class DoctorService
     {
         return $this->doctorRepository->getDoctors($data);
     }
+
+    public function createDoctor(array $data)
+    {
+        return $this->doctorRepository->createDoctor($data);
+    }
 }
