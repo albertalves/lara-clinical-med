@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateConsultationRequest;
 use App\Http\Requests\CreateDoctorRequest;
+use App\Http\Resources\ConsultationResource;
 use App\Http\Resources\DoctorResource;
 use App\Http\Traits\JsonResponse;
 use App\Services\DoctorService;
@@ -54,6 +56,19 @@ class DoctorController extends Controller
             ]);
         } catch (\Exception $exception) {
             return $this->response('Não foi possível concluir seu cadastro.', [$exception->getMessage()], 422);
+        }
+    }
+
+    public function scheduleConsultation(CreateConsultationRequest $request)
+    {
+        try {
+            $consultation = $this->doctorService->scheduleConsultation($request->validated());
+
+            return $this->response('Consulta criada com sucesso.', [
+                'consultation' => new ConsultationResource($consultation)
+            ]);
+        } catch (\Exception $exception) {
+            return $this->response('Não foi possível criar a consulta.', [$exception->getMessage()], 422);
         }
     }
 }

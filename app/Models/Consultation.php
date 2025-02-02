@@ -10,6 +10,12 @@ class Consultation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'doctor_id',
+        'patient_id',
+        'date'
+    ];
+
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(Doctor::class);
