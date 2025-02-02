@@ -22,10 +22,16 @@ sail up -d
 ```
 
 
-### Key generate
+### Key generate laravel
 
 ```shell
 sail artisan key:generate
+```
+
+
+### Key generate JWT
+```shell
+sail artisan jwt:secret
 ```
 
 
