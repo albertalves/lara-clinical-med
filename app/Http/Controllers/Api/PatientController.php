@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Http\Traits\JsonResponse;
 use App\Services\PatientService;
-use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
@@ -26,9 +26,17 @@ class PatientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePatientRequest $request)
     {
-        dd('asdas');
+        try {
+            $patient = $this->patientService->storePatient($request->validated());
+
+            return $this->response('Paciente adicionado com sucesso.', [
+                'patients' => new PatientResource($patient)
+            ]);
+        } catch (\Exception $exception) {
+            return $this->response('Não foi possível adicionar o paciente', [$exception->getMessage()], 422);
+        }
     }
 
     /**
@@ -41,13 +49,13 @@ class PatientController extends Controller
     public function update(UpdatePatientRequest $request)
     {
         try {
-            $patient = $this->patientService->updatePatients($request->validated(), $request->patientId);
+            $patient = $this->patientService->updatePatient($request->validated(), $request->patientId);
 
             if (empty($patient)) {
                 throw new \Exception('Nenhum paciente foi encontrado.');
             }
 
-            return $this->response('Sucesso.', [
+            return $this->response('Paciente atualizado com sucesso.', [
                 'patients' => new PatientResource($patient)
             ]);
         } catch (\Exception $exception) {

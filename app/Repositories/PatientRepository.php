@@ -28,4 +28,15 @@ class PatientRepository
 
         return $patient->fresh();
     }
+
+    public function storePatient(array $data)
+    {   
+        $patient = $this->patient->create([
+            'name'   => $data['name'],
+            'phone'  => $data['phone'],
+            'identity'  => $data['identity'],
+        ]);
+
+        return $patient;
+    }
 }

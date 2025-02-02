@@ -12,7 +12,8 @@ class Patient extends Model
 
     protected $fillable = [
         'name',
-        'phone'
+        'phone',
+        'identity'
     ];
 
     public function consultations(): HasMany
