@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Patient;
+use App\Http\Requests\UpdatePatientRequest;
+use App\Http\Resources\PatientResource;
+use App\Http\Traits\JsonResponse;
+use App\Services\PatientService;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    use JsonResponse;
+
+    protected $patientService;
+
+    public function __construct(PatientService $service)
     {
-        dd('indas');
+        $this->patientService = $service;
     }
 
     /**
@@ -36,8 +38,20 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(UpdatePatientRequest $request)
     {
-        dd('update');
+        try {
+            $patient = $this->patientService->updatePatients($request->validated(), $request->patientId);
+
+            if (empty($patient)) {
+                throw new \Exception('Nenhum paciente foi encontrado.');
+            }
+
+            return $this->response('Sucesso.', [
+                'patients' => new PatientResource($patient)
+            ]);
+        } catch (\Exception $exception) {
+            return $this->response('Não foi possível editar o paciente', [$exception->getMessage()], 422);
+        }
     }
 }

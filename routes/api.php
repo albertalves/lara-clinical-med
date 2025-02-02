@@ -17,9 +17,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('doctors/consultation', [DoctorController::class, 'scheduleConsultation']);
     Route::get('doctors/{doctorId}/patients', [DoctorController::class, 'patients']);
 
-    Route::get('patients', [PatientController::class, 'index']);
     Route::post('patients', [PatientController::class, 'store']);
-    Route::put('patients', [PatientController::class, 'update']);
+    Route::put('patients/{patientId}', [PatientController::class, 'update']);
 
     Route::get('consultations', [ConsultationController::class, 'index']);
     Route::post('consultations', [ConsultationController::class, 'store']);
