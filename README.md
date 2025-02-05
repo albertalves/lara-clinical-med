@@ -1,42 +1,81 @@
-# LARA CLINICAL MED
+## Documentação da API com Swagger
+### O Swagger fornecerá uma interface interativa para explorar e testar os endpoints da API.
+### Para visualizar a documentação, siga os passos abaixo:
 
-## Dev
+```shell
+1. Certifique-se de que a aplicação está rodando.
+2. Abra o navegador e acesse a URL: http://localhost:8989/api/documentation
+```
 
-### Copy default env
 
+## Passo a passo para executar o projeto:
+
+### Crie o Arquivo .env
 ```shell
 cp .env.example .env
 ```
 
-### Configuring A Bash Alias
 
+###  Atualize as variáveis de ambiente do arquivo .env
 ```shell
-alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+APP_URL=http://localhost:8989
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=root
+
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
 ```
 
 
-### start application
-
+### Suba os containers do projeto
 ```shell
-sail up -d
+docker-compose up -d
 ```
 
 
-### Key generate laravel
-
+### Acesse o container do app
 ```shell
-sail artisan key:generate
+docker-compose exec app bash
 ```
 
 
-### Key generate JWT
+### Instalar as dependências do projeto
 ```shell
-sail artisan jwt:secret
+composer install
 ```
 
 
-### Execute seeds
+### Gerar a key do projeto Laravel
+```shell
+php artisan key:generate
+```
+
+
+### Gerar a key do JWT
+```shell
+php artisan jwt:secret
+```
+
+
+### Executar as migrations
 
 ```shell
-sail artisan db:seed
+php artisan migrate
+```
+
+
+### Executar os seeds
+
+```shell
+php artisan db:seed
 ```
