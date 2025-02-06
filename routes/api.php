@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
     CityController,
-    ConsultationController,
     DoctorController,
     PatientController,
     AuthController
@@ -11,6 +10,7 @@ use App\Http\Controllers\Api\{
 
 Route::get('cities', [CityController::class, 'index']);
 Route::get('doctors', [DoctorController::class, 'index']);
+Route::get('patients', [PatientController::class, 'index']);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('doctors', [DoctorController::class, 'store']);
@@ -19,9 +19,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('patients', [PatientController::class, 'store']);
     Route::put('patients/{patientId}', [PatientController::class, 'update']);
-
-    Route::get('consultations', [ConsultationController::class, 'index']);
-    Route::post('consultations', [ConsultationController::class, 'store']);
 
     Route::get('cities/{cityId}/doctors', [CityController::class, 'doctors']);
 });

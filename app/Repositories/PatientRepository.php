@@ -13,11 +13,16 @@ class PatientRepository
         $this->patient = $patient;
     }
 
+    public function getPatients()
+    {
+        return $this->patient->all();
+    }
+
     public function updatePatient(array $data, int $patientId)
     {
         $patient = $this->patient->find($patientId);
 
-        if (!$patient || $patient->isEmpty()) {
+        if (!isset($patient->id)) {
             return [];
         }
 

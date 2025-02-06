@@ -2,9 +2,9 @@
 // filepath: /home/albert/Documents/lara-clinical-med/config/swagger-l5.php
 /**
  * @OA\Info(
- *     title="API Documentation",
+ *     title="Lara Clinical Med API",
  *     version="1.0.0",
- *     description="API documentation for the Laravel project"
+ *     description="API documentation for Lara Clinical Med"
  * )
  */
 
@@ -223,6 +223,12 @@ return [
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
                 */
+                'bearer_token' => [ // Unique name of security
+                    'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
+                    'description' => 'Enter token in format (Bearer <token>)',
+                    'name' => 'Authorization', // The name of the header or query parameter to be used.
+                    'in' => 'header', // The location of the API key. Valid values are "query" or "header".
+                ],
             ],
             'security' => [
                 /*

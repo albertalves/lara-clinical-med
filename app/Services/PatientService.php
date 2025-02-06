@@ -13,6 +13,11 @@ class PatientService
         $this->patientRepository = $patient;
     }
 
+    public function getPatients()
+    {
+        return $this->patientRepository->getPatients();
+    }
+
     public function updatePatient(array $data, int $patientId)
     {
         return $this->patientRepository->updatePatient($data, $patientId);

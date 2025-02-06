@@ -24,8 +24,8 @@ class CreateConsultationRequest extends FormRequest
     public function rules()
     {
         return [
-            'doctor_id' => 'required|exists:doctors,id',
-            'patient_id' => 'required|exists:patients,id',
+            'doctorId' => 'required|exists:doctors,id',
+            'patientId' => 'required|exists:patients,id',
             'date' => 'required'
         ];
     }
@@ -33,10 +33,10 @@ class CreateConsultationRequest extends FormRequest
     public function messages()
     {
         return [
-            'doctor_id.required' => 'O campo doctor_id é obrigatório.',
-            'doctor_id.exists' => 'Este médico não existe, informe um doctor_id válido.',
-            'patient_id.required' => 'O campo patient_id é obrigatório.',
-            'patient_id.exists' => 'Este paciente não existe, informe um patient_id válido.',
+            'doctorId.required' => 'O campo doctor_id é obrigatório.',
+            'doctorId.exists' => 'Este médico não existe, informe um doctor_id válido.',
+            'patientId.required' => 'O campo patient_id é obrigatório.',
+            'patientId.exists' => 'Este paciente não existe, informe um patient_id válido.',
             'date.required' => 'O campo data é obrigatório.'
         ];
     }

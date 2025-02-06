@@ -19,6 +19,10 @@ class CityRepository
         $name = $request->query('name');
         $cities = $this->city->where('name', 'like', "%$name%")->orderBy('name', 'asc')->paginate(10);
 
+        if (!$cities->count()) {
+            return [];
+        }
+
         return $cities;
     }
 
